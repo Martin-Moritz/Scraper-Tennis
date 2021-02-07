@@ -12,7 +12,7 @@ Projet ESIEE Paris dont l'objectif est de créer une application Web en utilisan
 
 ## 1 - Introduction <a name="introduction" />
 
-#### Technologies utilisées
+### Technologies utilisées
 
 Cette application web est codée en Python, basée sur le package <a href="https://flask.palletsprojects.com/en/1.1.x/">**Flask**</a>.<br>
 L'application permet de récupérer des données sur le web en les <a href="https://scrapy.org/">**scrapant**</a>.<br>
@@ -21,7 +21,7 @@ Enfin, ces données sont affichées à travers un Dashboard interactif réalisé
 
 L'ensemble de l'application est déployée grâce à la technologie <a href="https://www.docker.com/">**Docker**</a>.
 
-#### Thème choisi
+### Thème choisi
 
 Les données utilisées par cette application sont les classements des joueurs de tennis mondiaux en tournois simples (*singles*) et en tournois doubles (*doubles*). Ces données sont issues du site officiel https://www.atptour.com/ et sont scrapées à chaque démarrage de l'application directement depuis les adresses suivantes :
 

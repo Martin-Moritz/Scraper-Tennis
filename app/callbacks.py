@@ -7,10 +7,6 @@ import dash_bootstrap_components as dbc
 from .figures import *
 from .data import *
 
-import os
-from data.redis import *
-from newscrawler.run_spider import *
-
 # Callbacks pour rafraichir et mettre à jour les différentes figures et composants
 def register_callbacks(dashapp):
     @dashapp.callback(

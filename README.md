@@ -1,4 +1,4 @@
-# Projet Python : Data Engineer Tools - Scraper Tennis <a href="https://www.esiee.fr/"> <img align="right" width="8%" height="8%" src="rapport/Logo_ESIEE_Paris.png"> </a>
+# Projet Python : Data Engineer Tools - Scraper Tennis <a href="https://www.esiee.fr/"> <img align="right" width="8%" height="8%" src="images/Logo_ESIEE_Paris.png"> </a>
 
 Projet ESIEE Paris dont l'objectif est de créer une application Web en utilisant plusieurs outils d'ingénieur data (Data Engineer Tools).
 
@@ -23,7 +23,7 @@ L'ensemble de l'application est déployée grâce à la technologie <a href="htt
 
 #### Thème choisi
 
-Les données utilisées par cette application sont les classements des joueurs de tennis mondiaux en tournois simples (*singles*) et en tournois doubles (*doubles*). Ces données sont issues du site officiel https://www.atptour.com/ et sont scrapées directement depuis les adresses suivantes :
+Les données utilisées par cette application sont les classements des joueurs de tennis mondiaux en tournois simples (*singles*) et en tournois doubles (*doubles*). Ces données sont issues du site officiel https://www.atptour.com/ et sont scrapées à chaque démarrage de l'application directement depuis les adresses suivantes :
 
 - https://www.atptour.com/en/rankings/singles
 - https://www.atptour.com/en/rankings/doubles
@@ -36,7 +36,7 @@ Les divers éléments tirés de ces classements sont revisités à travers le da
 
 *Installer python au préalable sur la machine utilisée (version 3+).*
 
-##### Télécharger le Projet
+### Télécharger le Projet
 
 Si vous avez l'habitude d'utiliser <a href="https://git-scm.com/">Git</a>, utilisez la commande suivante :
 
@@ -44,9 +44,9 @@ Si vous avez l'habitude d'utiliser <a href="https://git-scm.com/">Git</a>, utili
 
 Sinon, téléchargez simplement le dossier du projet en format .zip depuis cette page avec **Code -> Download ZIP**
 
-##### Docker
+### Docker
 
-Cette application doit être déployée en utilisant la technologie Docker. Docker est un outil de virtualisation qui permet de lancer toutes les ressources nécessaire du projet sans demander de nombreuses manipulations.
+Cette application doit être déployée en utilisant la technologie Docker. Docker est un outil de virtualisation qui permet de lancer toutes les ressources nécessaires du projet sans demander de nombreuses manipulations.
 
 Pour l'installation de **Docker**, suivez les informations suivantes selon votre système d'exploitation :
 
@@ -54,16 +54,7 @@ Pour l'installation de **Docker**, suivez les informations suivantes selon votre
 - **Linux :** https://docs.docker.com/engine/install/ubuntu/ puis installez **Docker Compose** : https://docs.docker.com/compose/install/
 - **MacOs :** https://docs.docker.com/docker-for-mac/install/
 
-Vous pouvez suivre la page complète de commencement de Docker sur la <a href="https://www.docker.com/get-started">page d'installation de Docker</a>.
-
-##### Ouvrir l'invite de commandes
-
-> *Windows* et *Linux* : chercher en tapant '*terminal*' dans la barre de recherche.
-
-##### Se placer dans le dossier du projet
-
-> Utiliser la commande `cd <chemin du répertoire>`<br>
-> par exemple : 'cd Desktop/scraper-tennis'
+Vous pouvez suivre la page complète de démarrage avec Docker sur la <a href="https://www.docker.com/get-started">page d'installation de Docker</a>.
 
 ### **Utilisation**
 
@@ -73,13 +64,22 @@ Vous pouvez suivre la page complète de commencement de Docker sur la <a href="h
 
 - Ouvrez l'invite de commandes
 
+##### Ouvrir l'invite de commandes
+
+> *Windows* et *Linux* : chercher en tapant '*terminal*' dans la barre de recherche.
+
 - Placez-vous à la racine du projet
+
+##### Se placer dans le dossier du projet
+
+> Utiliser la commande `cd <chemin du répertoire>`<br>
+> par exemple : 'cd Desktop/scraper-tennis'
 
 - Démarrez Docker si ce n'est pas déjà fait (à l'aide de *Docker Desktop* par exemple)
 
-- Installez les ressources nécéssaires en exécutant la commande `docker-compose build`
+- Installez les ressources nécessaires en exécutant la commande `docker-compose build`
 
-Si c'est la première fois que vous exécutez cette commande, le téléchargement pourra prendre quelques minutes (c'est le moment de faire un café).
+Si c'est la première fois que vous exécutez cette commande, le téléchargement pourra prendre quelques minutes.
 
 A la fin, si tout se passe bien, vous pourrez observer ces deux lignes  :
 
@@ -94,8 +94,13 @@ Successfully tagged scraper-tennis_web:latest
 
 - Ouvrez votre navigateur internet et affichez le dashboard <a href="http://127.0.0.1:5000/">ici</a> (l'application fonctionne à l'adresse http://127.0.0.1:5000/)
 
-- Appuyez CTLR+C dans le terminal pour quitter l'application
+- Appuyez CTLR+C dans le terminal pour quitter l'application :
 
+```
+Gracefully stopping... (press Ctrl+C again to force)
+Stopping scrapertennis_web_1   ... done
+Stopping redis_tennis          ... done
+```
 ## 3 - Developer Guide <a name="developer-guide" />
 
 #### Architecture du projet
@@ -105,9 +110,9 @@ Le projet est constitué de :
 - 4 dossiers :
 
   - **app** : contient le code du dashboard (application web flask).
-  - **data** : c'est ici que sont stockées les données récupérées.
+  - **data** : c'est ici que sont stockées toutes les données.
   - **newscrawler** : contient le code du scraper pour récupérer les données sur le web.
-  - **rapport** : contient les images utilisées dans ce rapport.
+  - **images** : contient les images utilisées dans ce README.
 
 * 5 fichiers :
 
@@ -185,23 +190,23 @@ Sur le dashboard sont affichés des graphiques permettant d'illustrer les donné
 
 En haut de la page se trouve une barre permettant de choisir d'afficher les données correspondant au classement de tennis en tournois **simples** (*Singles*) ou en tournois **doubles** (*Doubles*).
 
-![Dashboard1](rapport/Dashboard1.PNG)
+![Dashboard1](images/Dashboard1.PNG)
 
 Un bouton "ATP Tour" permet d'aller sur le site officiel de l'ATP et de comparer en temps réel les informations affichées sur le dashboard avec le classement du site.
 
 Se trouve ensuite le classement des joueurs avec leurs informations respectives telles qu'elles peuvent être retrouvées sur le site de l'ATP.
 
-![Dashboard2](rapport/Dashboard2.PNG)
+![Dashboard2](images/Dashboard2.PNG)
 
 Il est possible de sélectionner les joueurs affichés grâce au menu déroulant placé au-dessus.
 
 En-dessous, on observe deux graphiques : l'un permet de distinguer la répartition de l'âge des joueurs présents dans le classement, l'autre compare les points des 10 premiers joueurs du classement.
 
-![Dashboard3](rapport/Dashboard3.PNG)
+![Dashboard3](images/Dashboard3.PNG)
 
 Enfin, une carte permet d'évaluer le taux de présence des différentes nationnalités du classement.
 
-![Dashboard4](rapport/Dashboard4.PNG)
+![Dashboard4](images/Dashboard4.PNG)
 
 ## Data <a name="dataset" />
 

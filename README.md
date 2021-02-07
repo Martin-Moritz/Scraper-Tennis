@@ -4,13 +4,13 @@ Projet ESIEE Paris dont l'objectif est de créer une application Web en utilisan
 
 ## Table des matières
 
- - [Présentation](#presentation)
+ - [Introduction](#introduction)
  - [User Guide](#user-guide)
  - [Developer Guide](#developer-guide)
- - [Rapport d'analyse](#rapport-danalyse)
- - [Données](#dataset)
+ - [Dashboard](#dashboard)
+ - [Data](#dataset)
 
-## 1 - Presentation <a name="user-guide" />
+## 1 - Introduction <a name="introduction" />
 
 #### Technologies utilisées
 
@@ -56,7 +56,7 @@ Pour l'installation de **Docker**, suivez les informations suivantes selon votre
 
 Vous pouvez suivre la page complète de commencement de Docker sur la <a href="https://www.docker.com/get-started">page d'installation de Docker</a>.
 
-##### Ouvrir l'invite de commande
+##### Ouvrir l'invite de commandes
 
 > *Windows* et *Linux* : chercher en tapant '*terminal*' dans la barre de recherche.
 
@@ -71,39 +71,28 @@ Vous pouvez suivre la page complète de commencement de Docker sur la <a href="h
 
 **Lancez l'application en suivant les étapes suivantes :**
 
-- Ouvrez l'invite de commande
+- Ouvrez l'invite de commandes
 
-- Placez-vous dans le dossier du projet
+- Placez-vous à la racine du projet
 
-- Installez les ressources nécéssaires en exécutant la commande `docker-compose build` pour démarrer l'application
+- Démarrez Docker si ce n'est pas déjà fait (à l'aide de *Docker Desktop* par exemple)
 
-Si tout se passe bien :
+- Installez les ressources nécéssaires en exécutant la commande `docker-compose build`
+
+Si c'est la première fois que vous exécutez cette commande, le téléchargement pourra prendre quelques minutes (c'est le moment de faire un café).
+
+A la fin, si tout se passe bien, vous pourrez observer ces deux lignes  :
 
 ```
-* Serving Flask app "app" (lazy loading)
-* Environment: production
-  WARNING: This is a development server. Do not use it in a production deployment.
-  Use a production WSGI server instead.
-* Debug mode: on
-* Restarting with stat
-* Debugger is active!
-* Debugger PIN: 193-380-289
-* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-
-redis is connected :  True
-* Serving Flask app "app" (lazy loading)
-* Environment: production
-  WARNING: This is a development server. Do not use it in a production deployment.
-  Use a production WSGI server instead.
-* Debug mode: on
-web_1    | 2021-02-07 19:35:39 [werkzeug] INFO:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+Successfully built 35afec8ab936
+Successfully tagged scraper-tennis_web:latest
 ```
 
-- Exécutez la commande `docker-compose build` pour démarrer l'application
+- Exécutez la commande `docker-compose up` pour démarrer l'application
 
 - Attendez quelques instants le chargement de l'application
 
-- Ouvrez votre navigateur internet et affichez le dashboard en *localhost* (entrez l'adresse suivante dans votre navigateur : http://127.0.0.1:5000/)
+- Ouvrez votre navigateur internet et affichez le dashboard <a href="http://127.0.0.1:5000/">ici</a> (l'application fonctionne à l'adresse http://127.0.0.1:5000/)
 
 - Appuyez CTLR+C dans le terminal pour quitter l'application
 
@@ -115,25 +104,27 @@ Le projet est constitué de :
 
 - 4 dossiers :
 
-  - **pycache** : contient une version compressée des modules python afin d'accélérer leur chargement.
-  - **app** : contient l'ensemble du code de l'application.
-  - **data** : contient les fichiers .csv des données utilisées pour ce projet.
-  - **rapport** : contient les images utilisées dans le rapport d'analyse.
+  - **app** : contient le code du dashboard (application web flask).
+  - **data** : c'est ici que sont stockées les données récupérées.
+  - **newscrawler** : contient le code du scraper pour récupérer les données sur le web.
+  - **rapport** : contient les images utilisées dans ce rapport.
 
-* 3 fichiers :
+* 5 fichiers :
 
-  * **main.py** : fichier python permettant de lancer l'application.
+  * **docker-compose.yml** : permet de définir les services qui composent l'application afin de les exécuter dans un environnement isolé.
+  * **Dockerfile** : permet de construire l'image Docker en exécutant les étapes décrites dans ce même fichier.
+  * **main.py** : fichier python permettant de faire tourner l'application (scraper + base de données + dashboard).
   * **requirements.txt** : liste des modules/packages utilisés dans cette application.
   * **README.md**
 
 #### Architecture du dossier **app**
 
-Le dossier app est constitué d'un dossier *pycache* et de 7 fichiers python :
+Le dossier *app* est constitué d'un dossier *pycache* (= version compressée des modules python afin d'accélérer leur chargement) et de 7 fichiers python :
 
 - **init.py** : permet de créer l'application *flask*.
 - **callbacks.py** : contient les fonctions qui permettent d'obtenir des graphiques interactifs.
 - **dash.py** : permet de convertir l'application *flask* en une application *Dash*, permettant ainsi la création du dashboard.
-- **data.py** : contient le code permettant de trier les jeux de données contenus dans le dossier .data
+- **data.py** : contient le code permettant de trier et d'utilsier les données contenues dans le dossier .data
 - **figures.py** : contient les fonctions qui créent les différentes figures et graphiques du dashboard.
 - **layout.py** : contient le code permettant de disposer les différents composants et figures sur la page, déterminant ainsi l'aspect du dashboard.
 - **navbar.py** : contient le code déterminant l'aspect de la barre de navigation située en haut de la page.
@@ -141,103 +132,85 @@ Le dossier app est constitué d'un dossier *pycache* et de 7 fichiers python :
 #### Fonctions des différents fichiers
 
 - **callbacks.py** :
-  - *update_carte(selected_countries, selected_salarial)*
-  > Met à jour la carte choroplèthe en fonction des pays choisis dans le menu déroulant, ainsi qu'en fonction du type d'emploiement sélectionné.
+  - *update_carte(selected_countries, selected_classement)*
+  > Met à jour la carte choroplèthe en fonction des pays choisis dans le menu déroulant, ainsi qu'en fonction du type de classement choisi (singles ou doubles).
 
-  - *update_histogramme(selected_countries, selected_salarial, selected_year)*
-  > Met à jour l'histogramme en fonction des pays et du type d'emploiement choisis, ainsi que de l'année sélectionnée sur le slider situé en dessous.
+  - *update_histogramme(selected_classement)*
+  > Met à jour l'histogramme en fonction du type de classement choisi (singles ou doubles).
 
-  - *update_diagramme(selected_countries, selected_salarial, selected_year)*
-  > Met à jour le diagramme en barres en fonction des pays et du type d'emploiement choisis, ainsi que de l'année sélectionnée sur le slider situé en dessous.
+  - *update_diagramme(selected_classement)*
+  > Met à jour le diagramme en barres en fonction du type de classement choisi (singles ou doubles).
 
-  - *update_slider(selected_countries, selected_salarial)*
-  > Met à jour le slider en fonction des pays et du type d'emploiement choisis pour pouvoir sélectionner des années où des données sont présentes.
+  - *update_link(selected_classement)*
+  > Met à jour le lien vers ATP Tour en fonction du type de classement choisi (singles ou doubles).
 
-  - *update_dropdown(selected_salarial)*
-  > Permet d'activer ou désactiver le menu déroulant en fonction du type d'emploiement sélectionné.
+  - *update_dropdown(selected_classement)*
+  > Permet de mettre à jour les choix des joueurs et pays disponibles dans les menus déroulant selon le type de classement choisi (singles ou doubles).
 
-  - *update_graphe(selected_countries, selected_salarial)*
-  > Met à jour le premier graphique en fonction des pays choisis dans le menu déroulant, ainsi qu'en fonction du type d'emploiement sélectionné.
+  - *update_classement(selected_players, selected_classement)*
+  > Met à jour le classement selon le type de classement (singles ou doubles) ainsi que selon les joueurs choisis dans le menu déroulant.
 
 - **figures.py** :
-  - *create_carte(df,focus='world')*
-  > Crée la carte choroplèthe avec le dataframe et le focus donnés en paramètres.
+  - *create_carte(df, pays, values, focus='world', type='Singles')*
+  > Crée la carte choroplèthe avec le dataframe et les autres paramètres donnés en argument.
 
-  - *create_histogramme(df, year)*
-  > Crée l'histogramme avec le dataframe et l'année donnés en paramètres.
+  - *create_histogramme(df, x, type='Singles')*
+  > Crée l'histogramme avec le dataframe et les autres paramètres donnés en argument.
 
-  - *create_diagramme(df, year)*
-  > Crée le diagramme en barres avec le dataframe et l'année donnés en paramètres.
-
-  - *create_graphe(df)*
-  > Crée le premier graphique avec le dataframe donné en paramètre.
-
-## 4 - Rapport d'analyse <a name="rapport-danalyse" />
-
-#### Définition de l'écart salarial femmes-hommes :
-
-L’écart salarial entre les femmes et les hommes est défini comme la différence entre le salaire médian des hommes et des femmes rapportée au salaire médian des hommes. Les données se rapportent d’une part aux salariés à plein temps et de l’autre aux non-salariés.
+  - *create_diagramme(df, x, y, type='Singles')*
+  > Crée le diagramme en barres avec le dataframe et les autres paramètres donnés en argument.
 
 
-#### Analyse :
+#### Architecture du dossier **data**
 
-###### **Introduction**
+Le dossier *data* est constitué de :
 
-La différence de salaires entre les hommes et les femmes est un fait flagrant concernant l'égalité hommes-femmes en France mais aussi partout dans le monde. La question que nous pouvons nous poser est : l'écart de salaire femmes-hommes se réduit-il au fil des années ?
+- un dossier **redis**, qui contient la sauvegarde de la base de données redis.
+- un fichier **pays.csv**, utilisé pour convertir en français le nom de pays retrouvés dans les données récupérées scrapées sur le web.
+- un fichier **redis.py** qui contient le code permettant d'initiliser et de stocker les données dans la base de données *redis*.
 
-###### **Le cas de la France**
+#### Architecture du dossier **newscrawler**
 
-En France, l'écart salarial en 1995 est de 14,6% pour des personnes salariées.
+Le dossier *newscrawler* est constitué de :
 
-![FRANCE1](rapport/France1.PNG)
+- un dossier **newscrawler** qui contient l'ensemble des composants du scraper (spiders, items, pipelines, etc.).
+Ce scraper a été créé avec la commande *scrapy* suivante : `scrapy startproject newscrawler`
+- un fichier **run_spider.py** qui contient le code permettant de scraper les données sur le web.
+- un fichier **scrapy.cfg** qui contient les paramètres de déploiement du scraper.
 
-Cet écart est évalué à 13,7% en 2016. On observe une légère baisse, mais l'évolution reste très faible et semble stagner en 20 ans.
 
-![FRANCE2](rapport/France2.PNG)
+## 4 - Dashboard <a name="dashboard" />
 
-###### **Dans le reste du monde**
+Sur le dashboard sont affichés des graphiques permettant d'illustrer les données tirées du site ATP tour.
 
-Mais qu'en est-il dans le reste du monde ?
+En haut de la page se trouve une barre permettant de choisir d'afficher les données correspondant au classement de tennis en tournois **simples** (*Singles*) ou en tournois **doubles** (*Doubles*).
 
-En 1995, l'écart salarial en Europe varie entre 10 et 28% selon les pays. Aux USA, l'écart est évalué à 24,6%. En Australie,  14,5%. Et enfin en Asie de l'Est, l'écart salarial femmes-hommes est de 37% au Japon et de 44% en Corée du Sud !
+![Dashboard1](rapport/Dashboard1.PNG)
 
-![MONDE1](rapport/Monde1.PNG)
+Un bouton "ATP Tour" permet d'aller sur le site officiel de l'ATP et de comparer en temps réel les informations affichées sur le dashboard avec le classement du site.
 
-On remarque une grande diversité de l'inégalité hommes-femmes au niveau des salaires selon les régions du monde.<br>
-Heureusement, cet écart salarial semble diminuer dans l'entièreté du globe au fil des ans pour atteindre des valeurs en 2016 de 7 à 17% en Europe, 17% en Amérique du Nord, 11,5% en Australie, 24,6% au Japon et 36,7% en Corée du Sud.
+Se trouve ensuite le classement des joueurs avec leurs informations respectives telles qu'elles peuvent être retrouvées sur le site de l'ATP.
 
-![MONDE2](rapport/Monde2.PNG)
+![Dashboard2](rapport/Dashboard2.PNG)
 
-###### **Le cas des auto-entrepreneurs**
+Il est possible de sélectionner les joueurs affichés grâce au menu déroulant placé au-dessus.
 
-Le cas des personnes non-salariées est plus délicat. En effet, beaucoup moins de personnes sont auto-entrepreneurs dans le monde et il sera plus difficile d'évaluer la pertinence des écarts de salaire observés dans le monde.
+En-dessous, on observe deux graphiques : l'un permet de distinguer la répartition de l'âge des joueurs présents dans le classement, l'autre compare les points des 10 premiers joueurs du classement.
 
-En 2006, l'écart salarial varie de 12 à 60% selon les pays,les plus grosses inégalités étant observées en Amérique du Nord.
+![Dashboard3](rapport/Dashboard3.PNG)
 
-![MONDE3](rapport/Monde3.PNG)
+Enfin, une carte permet d'évaluer le taux de présence des différentes nationnalités du classement.
 
-Nénmoins, on observe de manière globale une baisse de cet écart salarial dans le monde au fil des années. En 2016, les valeurs varient entre 8 et 56%.
+![Dashboard4](rapport/Dashboard4.PNG)
 
-![MONDE4](rapport/Monde4.PNG)
+## Data <a name="dataset" />
 
-###### **Conclusion**
+- Données scrapées sur le web :
 
-Le cas de la France laisse penser que l'écart de salaire entre les hommes et les femmes reste sensiblement le même depuis plus 20 ans.<br>
-Cependant, en comparant l'écart salarial en France au reste du monde, on remarque finalement que la France fait partie des pays les plus égalitaires en terme de salaire dans le monde !<br>
-Les plus grosses inégalités sont observés en Amérique du Nord, et surtout en Asie. On peut supposer que cela est dû à une grande différence culturelle et de société.
+  * https://www.atptour.com/en/rankings/singles (pour le classement de tennis en tournois simples)
+  * https://www.atptour.com/en/rankings/doubles (pour le classement de tennis en tournois doubles)
 
-Malgré cela, on remarque une diminution incontestable de l'écart salarial femmes-hommes, et ce, dans l'ensemble des pays du monde. Ainsi, même si de nombreux pays sont encore loin d'être proche d'une égalité totale en terme de salaire entre les hommes et les femmes, tout le monde se dirige à son rythme dans la bonne voie.
-
-#### Aller plus loin...
-
-Notre analyse porte sur la différence de salaires entre les hommes et les femmes de manière gobale.<br>
-Cependant, il pourra être pertinent de s'intéresser à l'écart salarial femmes-hommes au sein d'un même secteur d'activité (Agriculture, Industrie, Services...), voire au sein d'un métier précis.
-
-## Dataset <a name="dataset" />
-
-Data utilisée pour l'analyse : https://data.oecd.org/fr/earnwage/ecart-salarial-femmes-hommes.htm
-
-Data secondaire (utilisée pour avoir les noms des pays et des continents en français) :
+- Données secondaires (utilisées pour avoir les noms des pays et des continents en français) :
 
   - https://sql.sh/ressources/sql-pays/sql-pays.csv
   - https://pkgstore.datahub.io/JohnSnowLabs/country-and-continent-codes-list/country-and-continent-codes-list-csv_csv/data/b7876b7f496677669644f3d1069d3121/country-and-continent-codes-list-csv_csv.csv

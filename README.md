@@ -19,9 +19,9 @@ Projet codé en Python dont l'objectif est de créer une application Web en util
 
 ### Technologies Utilisées <a name="techno" />
 
-Cette application web est codée en Python, basée sur le package <a href="https://flask.palletsprojects.com/en/1.1.x/">**Flask**</a>.<br>
+Cette application web est codée en Python, basée sur le package <a href="https://flask.palletsprojects.com/en/1.1.x/">**Flask**</a> et tourne sur le **port 5000**.<br>
 L'application permet de récupérer des données sur le web en les <a href="https://scrapy.org/">**scrapant**</a>.<br>
-Ces données sont ensuite stockées dans une base de données <a href="https://en.wikipedia.org/wiki/Redis">**Redis**</a>.<br>
+Ces données sont ensuite stockées dans une base de données <a href="https://en.wikipedia.org/wiki/Redis">**Redis**</a> tournant sur le **port 6379**.<br>
 Enfin, ces données sont affichées à travers un Dashboard interactif réalisé avec le framework <a href="http://dash.plotly.com/">**Dash**</a>.<br>
 
 L'ensemble de l'application est déployée grâce à la technologie <a href="https://www.docker.com/">**Docker**</a>.

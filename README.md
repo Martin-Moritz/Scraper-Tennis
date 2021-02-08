@@ -37,7 +37,7 @@ Les divers éléments tirés de ces classements sont revisités à travers le da
 
 ## 2 - User Guide <a name="user-guide" />
 
-*Installer python au préalable sur la machine utilisée (version 3+).*
+*Installer <a href="https://www.python.org/downloads/">__Python__</a> au préalable sur la machine utilisée (version 3+).*
 
 ### Télécharger le Projet <a name="installation" />
 

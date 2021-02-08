@@ -5,12 +5,12 @@ Projet ESIEE Paris dont l'objectif est de créer une application Web en utilisan
 ## Table des matières
 
  - [Introduction](#introduction)
-  - [Technologies Utilisées](#techno)
-  - [Thème](#theme)
+    - [Technologies Utilisées](#techno)
+    - [Thème](#theme)
  - [User Guide](#user-guide)
-  - [Installation](#installation)
-  - [Docker](#docker)
-  - [Utilisation](#utilisation)
+    - [Télécharger le Projet](#installation)
+    - [Docker](#docker)
+    - [Utilisation](#utilisation)
  - [Developer Guide](#developer-guide)
  - [Dashboard](#dashboard)
  - [Data](#dataset)
@@ -37,11 +37,9 @@ Les divers éléments tirés de ces classements sont revisités à travers le da
 
 ## 2 - User Guide <a name="user-guide" />
 
-### **Installation** <a name="installation" />
-
 *Installer python au préalable sur la machine utilisée (version 3+).*
 
-### Télécharger le Projet
+### Télécharger le Projet <a name="installation" />
 
 Si vous avez l'habitude d'utiliser <a href="https://git-scm.com/">Git</a>, utilisez la commande suivante :
 

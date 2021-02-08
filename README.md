@@ -5,14 +5,19 @@ Projet ESIEE Paris dont l'objectif est de créer une application Web en utilisan
 ## Table des matières
 
  - [Introduction](#introduction)
+  - [Technologies Utilisées](#techno)
+  - [Thème](#theme)
  - [User Guide](#user-guide)
+  - [Installation](#installation)
+  - [Docker](#docker)
+  - [Utilisation](#utilisation)
  - [Developer Guide](#developer-guide)
  - [Dashboard](#dashboard)
  - [Data](#dataset)
 
 ## 1 - Introduction <a name="introduction" />
 
-### Technologies utilisées
+### Technologies Utilisées <a name="techno" />
 
 Cette application web est codée en Python, basée sur le package <a href="https://flask.palletsprojects.com/en/1.1.x/">**Flask**</a>.<br>
 L'application permet de récupérer des données sur le web en les <a href="https://scrapy.org/">**scrapant**</a>.<br>
@@ -21,7 +26,7 @@ Enfin, ces données sont affichées à travers un Dashboard interactif réalisé
 
 L'ensemble de l'application est déployée grâce à la technologie <a href="https://www.docker.com/">**Docker**</a>.
 
-### Thème choisi
+### Thème <a name="theme" />
 
 Les données utilisées par cette application sont les classements des joueurs de tennis mondiaux en tournois simples (*singles*) et en tournois doubles (*doubles*). Ces données sont issues du site officiel https://www.atptour.com/ et sont scrapées à chaque démarrage de l'application directement depuis les adresses suivantes :
 
@@ -32,7 +37,7 @@ Les divers éléments tirés de ces classements sont revisités à travers le da
 
 ## 2 - User Guide <a name="user-guide" />
 
-### **Installation**
+### **Installation** <a name="installation" />
 
 *Installer python au préalable sur la machine utilisée (version 3+).*
 
@@ -44,7 +49,7 @@ Si vous avez l'habitude d'utiliser <a href="https://git-scm.com/">Git</a>, utili
 
 Sinon, téléchargez simplement le dossier du projet en format .zip depuis cette page avec **Code -> Download ZIP**
 
-### Docker
+### Docker <a name="docker" />
 
 Cette application doit être déployée en utilisant la technologie Docker. Docker est un outil de virtualisation qui permet de lancer toutes les ressources nécessaires du projet sans demander de nombreuses manipulations.
 
@@ -56,7 +61,7 @@ Pour l'installation de **Docker**, suivez les informations suivantes selon votre
 
 Vous pouvez suivre la page complète de démarrage avec Docker sur la <a href="https://www.docker.com/get-started">page d'installation de Docker</a>.
 
-### **Utilisation**
+### **Utilisation** <a name="utilisation" />
 
 *Après avoir téléchargé le dossier du projet et installé Docker (voir ci-dessus) :*
 
